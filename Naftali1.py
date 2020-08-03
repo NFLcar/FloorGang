@@ -22,6 +22,15 @@ def do_turn(pw):
 
 	pw.issue_order(source, dest, num_ships)
 
+def findClosestPlanetToDest(dest, planets, pw)
+	closestPlanetDistance = 999999999999
+	for planet in planets:
+		if closestPlanetDistance > pw.distance(planet, dest):
+			closestPlanetDistance = pw.distance(planet, dest)
+			closestPlanet = planet
+	
+	return closestPlanet
+	
 def findSmallestPlanet(planets):
 	smallestPlanetId = 0
 	smallestPlanetSize = 999999999999
