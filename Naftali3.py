@@ -7,15 +7,11 @@ def do_turn(pw):
 
 	source = pw.get_planet(findBiggestPlanet(pw.my_planets()))
 
-	if len(pw.neutral_planets()) >= 1:
-		dest = findClosestPlanetToDest(source, pw.neutral_planets(), pw)
-	else:
-		if len(pw.enemy_planets()) >= 1:
-			dest = findClosestPlanetToDest(source, pw.enemy_planets(), pw)
+	if len(pw.not_my_planets()) >= 1:
+		dest = findClosestPlanetToDest(source, pw.not_my_planets(), pw)
 	
 	num_ships = source.num_ships() / 2
-	pw.debug('Num Ships: ' + str(num_ships))
-
+	
 	pw.issue_order(source, dest, num_ships)
 
 def findSmallestPlanet(planets):
