@@ -9,13 +9,15 @@ def do_turn(pw):
 		return
 
 	if len(pw.neutral_planets()) >= 1:
-		pw.debug(findSmallestPlanet(pw.neutral_planets()))
 		dest = pw.get_planet(findSmallestPlanet(pw.neutral_planets()))
 	else:
 		if len(pw.enemy_planets()) >= 1:
 			dest = pw.get_planet(findSmallestPlanet(pw.enemy_planets()))
 
-	source = pw.get_planet(findBiggestPlanet(pw.my_planets()))
+	if len(pw.my_planets()) < 7:		
+		source = pw.get_planet(findBiggestPlanet(pw.my_planets()))
+	else:
+		source = findClosestPlanetToDest(dest, findBiggestPlanets(pw.my_planets), pw)
 	
 	num_ships = source.num_ships() / 2
 	pw.debug('Num Ships: ' + str(num_ships))
@@ -64,9 +66,10 @@ def findBiggestPlanets(planets):
 
 def findClosestPlanetToDest(dest, planets, pw)
 	closestPlanetDistance = 999999999999
+	closestPlanet = dest
 	for planet in planets:
-		if closestPlanetDistance > pw.distance(planet, dest):
-			closestPlanetDistance = pw.distance(planet, dest)
-			closestPlanet = planet
+		if closestPlanetDistance > pw.distance(pw.get_planet(planet), dest):
+			closestPlanetDistance = pw.distance(pw.get_planet(planet), dest)
+			closestPlanet = pw.get_planet(planet)
 	
 	return closestPlanet
